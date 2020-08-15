@@ -1,6 +1,6 @@
 ### Hugo ###
 # Generated files by hugo
-/resources/_gen/
+resources/_gen/
 hugo_stats.json
 
 # Executable may be added to repository
