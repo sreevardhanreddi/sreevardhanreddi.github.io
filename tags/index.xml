@@ -6,9 +6,64 @@
     <description>Recent content in Tags on sreevardhanreddi.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Sat, 15 Aug 2020 15:06:51 +0530</lastBuildDate>
     
 	<atom:link href="https://sreevardhanreddi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>concurrency</title>
+      <link>https://sreevardhanreddi.github.io/tags/concurrency/</link>
+      <pubDate>Sat, 15 Aug 2020 15:06:51 +0530</pubDate>
+      
+      <guid>https://sreevardhanreddi.github.io/tags/concurrency/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>multi-threading</title>
+      <link>https://sreevardhanreddi.github.io/tags/multi-threading/</link>
+      <pubDate>Sat, 15 Aug 2020 15:06:51 +0530</pubDate>
+      
+      <guid>https://sreevardhanreddi.github.io/tags/multi-threading/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://sreevardhanreddi.github.io/tags/python/</link>
+      <pubDate>Sat, 15 Aug 2020 15:06:51 +0530</pubDate>
+      
+      <guid>https://sreevardhanreddi.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>django</title>
+      <link>https://sreevardhanreddi.github.io/tags/django/</link>
+      <pubDate>Wed, 15 Jul 2020 17:33:22 +0530</pubDate>
+      
+      <guid>https://sreevardhanreddi.github.io/tags/django/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gunicorn</title>
+      <link>https://sreevardhanreddi.github.io/tags/gunicorn/</link>
+      <pubDate>Wed, 15 Jul 2020 17:33:22 +0530</pubDate>
+      
+      <guid>https://sreevardhanreddi.github.io/tags/gunicorn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nginx</title>
+      <link>https://sreevardhanreddi.github.io/tags/nginx/</link>
+      <pubDate>Wed, 15 Jul 2020 17:33:22 +0530</pubDate>
+      
+      <guid>https://sreevardhanreddi.github.io/tags/nginx/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

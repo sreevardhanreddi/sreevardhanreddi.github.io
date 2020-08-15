@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>/sreevardhan on sreevardhanreddi.github.io</title>
-    <link>https://sreevardhanreddi.github.io/</link>
-    <description>Recent content in /sreevardhan on sreevardhanreddi.github.io</description>
+    <title>python on sreevardhanreddi.github.io</title>
+    <link>https://sreevardhanreddi.github.io/tags/python/</link>
+    <description>Recent content in python on sreevardhanreddi.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 15 Aug 2020 15:24:53 +0530</lastBuildDate>
+    <lastBuildDate>Sat, 15 Aug 2020 15:06:51 +0530</lastBuildDate>
     
-	<atom:link href="https://sreevardhanreddi.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://sreevardhanreddi.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>About</title>
-      <link>https://sreevardhanreddi.github.io/about/</link>
-      <pubDate>Sat, 15 Aug 2020 15:58:29 +0530</pubDate>
-      
-      <guid>https://sreevardhanreddi.github.io/about/</guid>
-      <description>about page</description>
-    </item>
     
     <item>
       <title>Concurrency in Python</title>
