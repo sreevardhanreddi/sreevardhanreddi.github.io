@@ -2,6 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>concurrency on sreevardhanreddi.github.io</title>
+    
+    
+    
     <link>https://sreevardhanreddi.github.io/tags/concurrency/</link>
     <description>Recent content in concurrency on sreevardhanreddi.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
@@ -17,9 +20,18 @@
       <pubDate>Sat, 15 Aug 2020 15:06:51 +0530</pubDate>
       
       <guid>https://sreevardhanreddi.github.io/blogs/concurrency-in-python/</guid>
-      <description>Concurrency in Python Concurrency is the ability of different parts or units of a program, algorithm, or problem to be executed out-of-order or in a partial order, without affecting the final outcome. This allows for parallel execution of the concurrent units, which can significantly improve the overall speed of the execution.
-Let&amp;rsquo;s look at an example code, which is not concurrent.
-import requests urls = [ &amp;#34;https://docs.python.org/3/&amp;#34;, &amp;#34;https://github.com/trending/&amp;#34;, &amp;#34;https://www.youtube.com/feed/trending/&amp;#34;, &amp;#34;https://stackoverflow.com/questions/&amp;#34;, &amp;#34;https://docs.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Concurrency is the ability of different parts or units of a program, algorithm, or problem to be executed out-of-order or in a partial order, without affecting the final outcome. This allows for parallel execution of the concurrent units, which can significantly improve the overall speed of the execution.
+          
+        
+        </description>
     </item>
     
   </channel>

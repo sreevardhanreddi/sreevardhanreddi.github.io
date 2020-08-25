@@ -2,6 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>gunicorn on sreevardhanreddi.github.io</title>
+    
+    
+    
     <link>https://sreevardhanreddi.github.io/tags/gunicorn/</link>
     <description>Recent content in gunicorn on sreevardhanreddi.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
@@ -17,9 +20,18 @@
       <pubDate>Wed, 15 Jul 2020 17:33:22 +0530</pubDate>
       
       <guid>https://sreevardhanreddi.github.io/blogs/deploying-django-project/</guid>
-      <description>Django Deployment guide using Gunicorn and Nginx on Digital Ocean. This is a summarized document from this digital ocean doc
-Any commands with &amp;ldquo;$&amp;rdquo; at the beginning run on your local machine and any &amp;ldquo;#&amp;rdquo; run when logged into the server
-Security &amp;amp; Access Creating SSH keys (Optional) You can choose to create SSH keys to login if you want. If not, you will get the password sent to your email to login via SSH</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Django Deployment guide using Gunicorn and Nginx on Digital Ocean.
+          
+        
+        </description>
     </item>
     
   </channel>

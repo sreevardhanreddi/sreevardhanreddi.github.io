@@ -2,6 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on sreevardhanreddi.github.io</title>
+    
+    
+    
     <link>https://sreevardhanreddi.github.io/categories/</link>
     <description>Recent content in Categories on sreevardhanreddi.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
@@ -17,7 +20,18 @@
       <pubDate>Sat, 15 Aug 2020 15:06:51 +0530</pubDate>
       
       <guid>https://sreevardhanreddi.github.io/categories/development/</guid>
-      <description></description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          
+          
+        
+        </description>
     </item>
     
     <item>
@@ -26,7 +40,18 @@
       <pubDate>Sat, 15 Aug 2020 15:06:51 +0530</pubDate>
       
       <guid>https://sreevardhanreddi.github.io/categories/python/</guid>
-      <description></description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          
+          
+        
+        </description>
     </item>
     
     <item>
@@ -35,7 +60,18 @@
       <pubDate>Wed, 15 Jul 2020 17:33:22 +0530</pubDate>
       
       <guid>https://sreevardhanreddi.github.io/categories/deployment/</guid>
-      <description></description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          
+          
+        
+        </description>
     </item>
     
   </channel>
