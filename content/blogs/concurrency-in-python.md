@@ -17,7 +17,7 @@ slug: "concurrency-in-python"
 showFullContent: ""
 ---
 
-# Concurrency in Python
+<!-- # Concurrency in Python -->
 
 Concurrency is the ability of different parts or units of a program, algorithm, or problem to be executed out-of-order or in a partial order, without affecting the final outcome. This allows for parallel execution of the concurrent units, which can significantly improve the overall speed of the execution.
 

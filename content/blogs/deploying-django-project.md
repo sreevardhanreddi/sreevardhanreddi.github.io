@@ -18,7 +18,7 @@ slug: "deploying-django-project"
 showFullContent: ""
 ---
 
-# Django Deployment guide using Gunicorn and Nginx on Digital Ocean.
+<!-- # Django Deployment guide using Gunicorn and Nginx. -->
 
 This is a summarized document from this [digital ocean doc](https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04)
 
@@ -526,4 +526,89 @@ server {
 ```console
 # sudo systemctl restart nginx
 # sudo systemctl restart gunicorn
+```
+
+# Alternate : Deploy with supervisor
+
+Install supervisor
+
+```console
+apt-get install supervisor
+```
+
+After installing supervisor create a supervisor conf file
+
+```console
+sudo vim /etc/supervisor/conf.d/django_project.conf
+```
+
+A sample conf file for django project
+
+```
+[program:project]
+command=/path_to/venv/bin/gunicorn --workers 2 --bind unix:/path_where_you_want_the_sock_file_to_reside/project.sock project.wsgi
+directory=/root/path_to_project/project
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/project.err.log
+stdout_logfile=/var/log/project.out.log
+
+[supervisord]
+environment=
+        DATABASE_URL="postgres://postgres:root@localhost:5432/db_name",
+        DEBUG_STATUS="False",
+```
+
+The conf file specifies how the project should be run by the gunicorn and where the log files should be and .env files for running the project
+
+After adding the conf file run the below commands
+
+```console
+sudo supervisorctl reread
+sudo supervisorctl update
+```
+
+To check if the supervisor services are running use the below commmands
+
+```console
+
+sudo service supervisor status
+sudo service supervisor restart
+sudo service supervisor start
+
+```
+
+Nginx config will remain same
+
+common nginx gotchas
+
+For debugging statifiles check access and error logs for nginx at /etc/nginx/
+
+Sometimes for staticfiles use alias instead of root with trailing slash
+
+Difference between root and alias inside static block
+
+https://stackoverflow.com/questions/10631933/nginx-static-file-serving-confusion-with-root-alias#:~:text=This%20difference%20exists%20in%20the,is%20appended%20to%20the%20alias.
+
+based on static file settings your nginx conf could be
+
+```nginx
+server {
+    listen 80;
+    server_name YOUR_IP_ADDRESS;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        alias /your_project/staticfiles/;
+    }
+
+    location /media/ {
+        root /pyapps/your_project;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/path_where_the_sock_file_resides/project.sock;
+    }
+}
 ```
