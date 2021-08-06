@@ -1,0 +1,9 @@
+[submodule "themes/terminal"]
+	path = themes/terminal
+	url = https://github.com/panr/hugo-theme-terminal.git
+[submodule "themes/themes/hello-friend"]
+	path = themes/themes/hello-friend
+	url = https://github.com/panr/hugo-theme-hello-friend.git
+[submodule "themes/hello-friend"]
+	path = themes/hello-friend
+	url = https://github.com/panr/hugo-theme-hello-friend.git
