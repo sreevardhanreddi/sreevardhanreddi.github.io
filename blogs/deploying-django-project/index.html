@@ -1,0 +1,383 @@
+<!doctype html><html lang=en>
+<head>
+<title>
+Deploying Django Project ::
+sreevardhanreddi.github.io — Software Developer
+</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="This is a summarized document from this digital ocean doc
+Any commands with &amp;ldquo;$&amp;rdquo; at the beginning run on your local machine and any &amp;ldquo;#&amp;rdquo; run when logged into the server
+Security &amp;amp; Access Creating SSH keys (Optional) You can choose to create SSH keys to login if you want. If not, you will get the password sent to your email to login via SSH
+To generate a key on your local machine">
+<meta name=keywords content="python,gunicorn,supervisor,systemd,nginx,servers">
+<meta name=robots content="noodp">
+<link rel=canonical href=https://sreevardhanreddi.github.io/blogs/deploying-django-project/>
+<link rel=stylesheet href=https://sreevardhanreddi.github.io/assets/style.css>
+<link rel=stylesheet href=https://sreevardhanreddi.github.io/style.css>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href=https://sreevardhanreddi.github.io/img/apple-touch-icon-144-precomposed.png>
+<link rel="shortcut icon" href=https://sreevardhanreddi.github.io/img/favicon.png>
+<link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-Italic.woff2 rel=preload type=font/woff2 as=font crossorigin>
+<link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-Regular.woff2 rel=preload type=font/woff2 as=font crossorigin>
+<link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-Medium.woff2 rel=preload type=font/woff2 as=font crossorigin>
+<link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-MediumItalic.woff2 rel=preload type=font/woff2 as=font crossorigin>
+<link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-Bold.woff2 rel=preload type=font/woff2 as=font crossorigin>
+<link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-BoldItalic.woff2 rel=preload type=font/woff2 as=font crossorigin>
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Deploying Django Project">
+<meta name=twitter:description content="Django Deployment guide using Gunicorn and Nginx on Digital Ocean.">
+<meta property="og:title" content="Deploying Django Project">
+<meta property="og:description" content="Django Deployment guide using Gunicorn and Nginx on Digital Ocean.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://sreevardhanreddi.github.io/blogs/deploying-django-project/"><meta property="article:section" content="blogs">
+<meta property="article:published_time" content="2020-07-15T17:33:22+05:30">
+<meta property="article:modified_time" content="2020-07-15T17:33:22+05:30"><meta property="og:site_name" content="sreevardhanreddi.github.io">
+</head>
+<body class=dark-theme>
+<div class=container>
+<header class=header>
+<span class=header__inner>
+<a href=/ class=logo style=text-decoration:none>
+<span class=logo__mark><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44"><path fill="none" d="M15 8l14.729 14.382L15 35.367"/></svg>
+</span>
+<span class=logo__text>developer</span>
+<span class=logo__cursor></span>
+</a>
+<span class=header__right>
+<nav class=menu>
+<ul class="menu__inner menu__inner--desktop">
+<li><a href=/>/</a></li>
+<li><a href=/blogs>Blogs</a></li>
+</ul>
+<ul class="menu__inner menu__inner--mobile">
+<li><a href=/>/</a></li>
+<li><a href=/blogs>Blogs</a></li>
+</ul>
+</nav>
+<span class=menu-trigger><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+</span>
+<span class=theme-toggle><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 41c10.4934.0 19-8.5066 19-19C41 11.5066 32.4934 3 22 3 11.5066 3 3 11.5066 3 22s8.5066 19 19 19zM7 22C7 13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22z"/></svg>
+</span>
+</span>
+</span>
+</header>
+<div class=content>
+<div class=post>
+<h1 class=post-title>Deploying Django Project</h1>
+<div class=post-meta>
+<span class=post-date>
+2020-07-15
+</span>
+</div>
+<span class=post-tags>
+<a href=https://sreevardhanreddi.github.io/tags/python/>#python</a>&nbsp;
+<a href=https://sreevardhanreddi.github.io/tags/django/>#django</a>&nbsp;
+<a href=https://sreevardhanreddi.github.io/tags/nginx/>#nginx</a>&nbsp;
+<a href=https://sreevardhanreddi.github.io/tags/gunicorn/>#gunicorn</a>&nbsp;
+</span>
+<div class=post-content>
+<p>This is a summarized document from this <a href=https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04>digital ocean doc</a></p>
+<p>Any commands with &ldquo;$&rdquo; at the beginning run on your local machine and any &ldquo;#&rdquo; run when logged into the server</p>
+<h1 id=security--access>Security & Access</h1>
+<h3 id=creating-ssh-keys-optional>Creating SSH keys (Optional)</h3>
+<p>You can choose to create SSH keys to login if you want. If not, you will get the password sent to your email to login via SSH</p>
+<p>To generate a key on your local machine</p>
+<pre><code class=language-console data-lang=console>$ ssh-keygen
+</code></pre><p>Hit enter all the way through and it will create a public and private key at</p>
+<pre><code class=language-console data-lang=console>~/.ssh/id_rsa
+~/.ssh/id_rsa.pub
+</code></pre><p>You want to copy the public key (.pub file)</p>
+<pre><code class=language-console data-lang=console>$ cat ~/.ssh/id_rsa.pub
+</code></pre><p>Copy the entire output and add as an SSH key for Digital Ocean</p>
+<h3 id=login-to-your-server>Login To Your Server</h3>
+<p>If you setup SSH keys correctly the command below will let you right in. If you did not use SSH keys, it will ask for a password. This is the one that was mailed to you</p>
+<pre><code class=language-console data-lang=console>$ ssh root@YOUR_SERVER_IP
+</code></pre><h3 id=create-a-new-user>Create a new user</h3>
+<p>It will ask for a password, use something secure. You can just hit enter through all the fields. I used the user &ldquo;djangoadmin&rdquo; but you can use anything</p>
+<pre><code class=language-console data-lang=console># adduser djangoadmin
+</code></pre><h3 id=give-root-privileges>Give root privileges</h3>
+<pre><code class=language-console data-lang=console># usermod -aG sudo djangoadmin
+</code></pre><h3 id=ssh-keys-for-the-new-user>SSH keys for the new user</h3>
+<p>Now we need to setup SSH keys for the new user. You will need to get them from your local machine</p>
+<h3 id=exit-the-server>Exit the server</h3>
+<p>You need to copy the key from your local machine so either exit or open a new terminal</p>
+<pre><code class=language-console data-lang=console># exit
+</code></pre><p>You can generate a different key if you want but we will use the same one so lets output it, select it and copy it</p>
+<pre><code class=language-console data-lang=console>$ cat ~/.ssh/id_rsa.pub
+</code></pre><h3 id=log-back-into-the-server>Log back into the server</h3>
+<pre><code class=language-console data-lang=console>$ ssh root@YOUR_SERVER_IP
+</code></pre><h3 id=add-ssh-key-for-new-user>Add SSH key for new user</h3>
+<p>Navigate to the new users home folder and create a file at &lsquo;.ssh/authorized_keys&rsquo; and paste in the key</p>
+<pre><code class=language-console data-lang=console># cd /home/djangoadmin
+# mkdir .ssh
+# cd .ssh
+# nano authorized_keys
+Paste the key and hit &quot;ctrl-x&quot;, hit &quot;y&quot; to save and &quot;enter&quot; to exit
+</code></pre><h3 id=login-as-new-user>Login as new user</h3>
+<p>You should now get let in as the new user</p>
+<pre><code class=language-console data-lang=console>$ ssh djangoadmin@YOUR_SERVER_IP
+</code></pre><h3 id=disable-root-login>Disable root login</h3>
+<pre><code class=language-console data-lang=console># sudo nano /etc/ssh/sshd_config
+</code></pre><h3 id=change-the-following>Change the following</h3>
+<pre><code class=language-console data-lang=console>PermitRootLogin no
+PasswordAuthentication no
+</code></pre><h3 id=reload-sshd-service>Reload sshd service</h3>
+<pre><code class=language-console data-lang=console># sudo systemctl reload sshd
+</code></pre><h1 id=simple-firewall-setup>Simple Firewall Setup</h1>
+<p>See which apps are registered with the firewall</p>
+<pre><code class=language-console data-lang=console># sudo ufw app list
+</code></pre><p>Allow OpenSSH</p>
+<pre><code class=language-console data-lang=console># sudo ufw allow OpenSSH
+</code></pre><h3 id=enable-firewall>Enable firewall</h3>
+<pre><code class=language-console data-lang=console># sudo ufw enable
+</code></pre><h3 id=to-check-status>To check status</h3>
+<pre><code class=language-console data-lang=console># sudo ufw status
+</code></pre><p>We are now done with access and security and will move on to installing software</p>
+<h1 id=software>Software</h1>
+<h2 id=update-packages>Update packages</h2>
+<pre><code class=language-console data-lang=console># sudo apt update
+# sudo apt upgrade
+</code></pre><h2 id=install-python-3-postgres--nginx>Install Python 3, Postgres & NGINX</h2>
+<pre><code class=language-console data-lang=console># sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx curl
+</code></pre><h1 id=postgres-database--user-setup>Postgres Database & User Setup</h1>
+<pre><code class=language-console data-lang=console># sudo -u postgres psql
+</code></pre><p>You should now be logged into the pg shell</p>
+<h3 id=create-a-database>Create a database</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>DATABASE</span> db_prod;
+</code></pre></div><h3 id=create-user>Create user</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>USER</span> dbadmin <span style=color:#66d9ef>WITH</span> PASSWORD <span style=color:#e6db74>&#39;test1234&#39;</span>;
+</code></pre></div><h3 id=set-default-encoding-tansaction-isolation-scheme-recommended-from-django>Set default encoding, tansaction isolation scheme (Recommended from Django)</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>ALTER</span> <span style=color:#66d9ef>ROLE</span> dbadmin <span style=color:#66d9ef>SET</span> client_encoding <span style=color:#66d9ef>TO</span> <span style=color:#e6db74>&#39;utf8&#39;</span>;
+<span style=color:#66d9ef>ALTER</span> <span style=color:#66d9ef>ROLE</span> dbadmin <span style=color:#66d9ef>SET</span> default_transaction_isolation <span style=color:#66d9ef>TO</span> <span style=color:#e6db74>&#39;read committed&#39;</span>;
+<span style=color:#66d9ef>ALTER</span> <span style=color:#66d9ef>ROLE</span> dbadmin <span style=color:#66d9ef>SET</span> timezone <span style=color:#66d9ef>TO</span> <span style=color:#e6db74>&#39;UTC&#39;</span>;
+</code></pre></div><h3 id=give-user-access-to-database>Give User access to database</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>GRANT</span> <span style=color:#66d9ef>ALL</span> <span style=color:#66d9ef>PRIVILEGES</span> <span style=color:#66d9ef>ON</span> <span style=color:#66d9ef>DATABASE</span> db_prod <span style=color:#66d9ef>TO</span> dbadmin;
+</code></pre></div><h3 id=quit-out-of-postgres>Quit out of Postgres</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#960050;background-color:#1e0010>\</span>q
+</code></pre></div><h1 id=vitrual-environment>Vitrual Environment</h1>
+<p>You need to install the python3-venv package</p>
+<pre><code class=language-console data-lang=console># sudo apt install python3-venv
+</code></pre><h3 id=create-project-directory>Create project directory</h3>
+<pre><code class=language-console data-lang=console># mkdir pyapps
+# cd pyapps
+</code></pre><h3 id=create-venv>Create venv</h3>
+<pre><code class=language-console data-lang=console># python3 -m venv ./venv
+</code></pre><h3 id=activate-the-environment>Activate the environment</h3>
+<pre><code class=language-console data-lang=console># source venv/bin/activate
+</code></pre><h1 id=git--upload>Git & Upload</h1>
+<h3 id=pip-dependencies>Pip dependencies</h3>
+<p>From your local machine, create a requirements.txt with your app dependencies. Make sure you push this to your repo</p>
+<pre><code class=language-console data-lang=console>$ pip freeze &gt; requirements.txt
+</code></pre><p>Create a new repo and push to it (you guys know how to do that)</p>
+<h3 id=clone-the-project-into-the-app-folder-on-your-server-either-https-or-setup-ssh-keys>Clone the project into the app folder on your server (Either HTTPS or setup SSH keys)</h3>
+<pre><code class=language-console data-lang=console># git clone https://github.com/yourgithubname/your_project.git
+</code></pre><h2 id=install-pip-modules-from-requirements>Install pip modules from requirements</h2>
+<p>You could manually install each one as well</p>
+<pre><code class=language-console data-lang=console># pip install -r requirements.txt
+</code></pre><h1 id=local-settings-setup>Local Settings Setup</h1>
+<p>Add code to your settings.py file and push to server</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>try</span>:
+    <span style=color:#f92672>from</span> .prod_settings <span style=color:#f92672>import</span> <span style=color:#f92672>*</span>
+<span style=color:#66d9ef>except</span> <span style=color:#a6e22e>ImportError</span>:
+    <span style=color:#66d9ef>pass</span>
+</code></pre></div><p>Create a file called <strong>prod_settings.py</strong> on your server along side of settings.py and add the following</p>
+<ul>
+<li>SECRET_KEY</li>
+<li>ALLOWED_HOSTS</li>
+<li>DATABASES</li>
+<li>DEBUG</li>
+<li>EMAIL</li>
+</ul>
+<h2 id=run-migrations>Run Migrations</h2>
+<pre><code class=language-console data-lang=console># python manage.py makemigrations
+# python manage.py migrate
+</code></pre><h2 id=create-super-user>Create super user</h2>
+<pre><code class=language-console data-lang=console># python manage.py createsuperuser
+</code></pre><h2 id=create-static-files>Create static files</h2>
+<pre><code class=language-console data-lang=console>python manage.py collectstatic
+</code></pre><h3 id=create-exception-for-port-8000>Create exception for port 8000</h3>
+<pre><code class=language-console data-lang=console># sudo ufw allow 8000
+</code></pre><h2 id=run-server>Run Server</h2>
+<pre><code class=language-console data-lang=console># python manage.py runserver 0.0.0.0:8000
+</code></pre><h3 id=test-the-site-at-your_server_ip8000>Test the site at YOUR_SERVER_IP:8000</h3>
+<p>Add some data in the admin area</p>
+<h1 id=gunicorn-setup>Gunicorn Setup</h1>
+<p>Install gunicorn</p>
+<pre><code class=language-console data-lang=console># pip install gunicorn
+</code></pre><p>Add to requirements.txt</p>
+<pre><code class=language-console data-lang=console># pip freeze &gt; requirements.txt
+</code></pre><h3 id=test-gunicorn-serve>Test Gunicorn serve</h3>
+<pre><code class=language-console data-lang=console># gunicorn --bind 0.0.0.0:8000 your_project.wsgi
+</code></pre><p>Your images, etc will be gone</p>
+<h3 id=stop-server--deactivate-virtual-env>Stop server & deactivate virtual env</h3>
+<pre><code class=language-console data-lang=console>ctrl-c
+# deactivate
+</code></pre><h3 id=open-gunicornsocket-file>Open gunicorn.socket file</h3>
+<pre><code class=language-console data-lang=console># sudo nano /etc/systemd/system/gunicorn.socket
+</code></pre><h3 id=copy-this-code-paste-it-in-and-save>Copy this code, paste it in and save</h3>
+<pre><code>[Unit]
+Description=gunicorn socket
+
+[Socket]
+ListenStream=/run/gunicorn.sock
+
+[Install]
+WantedBy=sockets.target
+</code></pre><h3 id=open-gunicornservice-file>Open gunicorn.service file</h3>
+<pre><code class=language-console data-lang=console># sudo nano /etc/systemd/system/gunicorn.service
+</code></pre><h3 id=copy-this-code-paste-it-in-and-save-1>Copy this code, paste it in and save</h3>
+<pre><code>[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=djangoadmin
+Group=www-data
+WorkingDirectory=/home/djangoadmin/apps/your_project
+ExecStart=/home/djangoadmin/apps/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 2 \
+          --bind unix:/run/gunicorn.sock \
+          your_project.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><h3 id=start-and-enable-gunicorn-socket>Start and enable Gunicorn socket</h3>
+<pre><code class=language-console data-lang=console># sudo systemctl start gunicorn.socket
+# sudo systemctl enable gunicorn.socket
+</code></pre><h3 id=check-status-of-guinicorn>Check status of guinicorn</h3>
+<pre><code class=language-console data-lang=console># sudo systemctl status gunicorn.socket
+</code></pre><h3 id=check-the-existence-of-gunicornsock>Check the existence of gunicorn.sock</h3>
+<pre><code class=language-console data-lang=console># file /run/gunicorn.sock
+</code></pre><h1 id=nginx-setup>NGINX Setup</h1>
+<h3 id=create-project-folder>Create project folder</h3>
+<pre><code class=language-console data-lang=console># sudo nano /etc/nginx/sites-available/your_project
+</code></pre><h3 id=copy-this-code-and-paste-into-the-file>Copy this code and paste into the file</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-nginx data-lang=nginx><span style=color:#66d9ef>server</span> {
+    <span style=color:#f92672>listen</span> <span style=color:#ae81ff>80</span>;
+    <span style=color:#f92672>server_name</span> <span style=color:#e6db74>YOUR_IP_ADDRESS</span>;
+
+    <span style=color:#f92672>location</span> = <span style=color:#e6db74>/favicon.ico</span> { <span style=color:#f92672>access_log</span> <span style=color:#66d9ef>off</span>; <span style=color:#f92672>log_not_found</span> <span style=color:#66d9ef>off</span>; }
+    <span style=color:#f92672>location</span> <span style=color:#e6db74>/static/</span> {
+        <span style=color:#f92672>root</span> <span style=color:#e6db74>/home/djangoadmin/pyapps/your_project</span>;
+    }
+
+    <span style=color:#f92672>location</span> <span style=color:#e6db74>/media/</span> {
+        <span style=color:#f92672>root</span> <span style=color:#e6db74>/home/djangoadmin/pyapps/your_project</span>;
+    }
+
+    <span style=color:#f92672>location</span> <span style=color:#e6db74>/</span> {
+        <span style=color:#f92672>include</span> <span style=color:#e6db74>proxy_params</span>;
+        <span style=color:#f92672>proxy_pass</span> <span style=color:#e6db74>http://unix:/run/gunicorn.sock</span>;
+    }
+}
+</code></pre></div><h3 id=enable-the-file-by-linking-to-the-sites-enabled-dir>Enable the file by linking to the sites-enabled dir</h3>
+<pre><code class=language-console data-lang=console># sudo ln -s /etc/nginx/sites-available/your_project /etc/nginx/sites-enabled
+</code></pre><h3 id=test-nginx-config>Test NGINX config</h3>
+<pre><code class=language-console data-lang=console># sudo nginx -t
+</code></pre><h3 id=restart-nginx>Restart NGINX</h3>
+<pre><code class=language-console data-lang=console># sudo systemctl restart nginx
+</code></pre><h3 id=remove-port-8000-from-firewall-and-open-up-our-firewall-to-allow-normal-traffic-on-port-80>Remove port 8000 from firewall and open up our firewall to allow normal traffic on port 80</h3>
+<pre><code class=language-console data-lang=console># sudo ufw delete allow 8000
+# sudo ufw allow 'Nginx Full'
+</code></pre><h3 id=you-will-probably-need-to-up-the-max-upload-size-to-be-able-to-create-listings-with-images>You will probably need to up the max upload size to be able to create listings with images</h3>
+<p>Open up the nginx conf file</p>
+<pre><code class=language-console data-lang=console># sudo nano /etc/nginx/nginx.conf
+</code></pre><h3 id=add-this-to-the-http-area>Add this to the http{} area</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-nginx data-lang=nginx><span style=color:#66d9ef>client_max_body_size</span> <span style=color:#e6db74>20M</span>;
+</code></pre></div><h3 id=reload-nginx>Reload NGINX</h3>
+<pre><code class=language-console data-lang=console># sudo systemctl restart nginx
+</code></pre><h1 id=domain-setup>Domain Setup</h1>
+<p>Go to your domain registrar and create the following a record</p>
+<pre><code>@  A Record  YOUR_IP_ADDRESS
+www  CNAME  example.com
+</code></pre><h3 id=go-to-local_settingspy-on-the-server-and-change-allowed_hosts-to-include-the-domain>Go to local_settings.py on the server and change &ldquo;ALLOWED_HOSTS&rdquo; to include the domain</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>ALLOWED_HOSTS <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#39;IP_ADDRESS&#39;</span>, <span style=color:#e6db74>&#39;example.com&#39;</span>, <span style=color:#e6db74>&#39;www.example.com&#39;</span>]
+</code></pre></div><h3 id=edit-etcnginxsites-availableyour_project>Edit /etc/nginx/sites-available/your_project</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-nginx data-lang=nginx><span style=color:#66d9ef>server</span> {
+    <span style=color:#f92672>listen:</span> <span style=color:#ae81ff>80</span>;
+    <span style=color:#f92672>server_name</span> <span style=color:#e6db74>xxx.xxx.xxx.xxx</span> <span style=color:#e6db74>example.com</span> <span style=color:#e6db74>www.example.com</span>;
+}
+</code></pre></div><h3 id=reload-nginx--gunicorn>Reload NGINX & Gunicorn</h3>
+<pre><code class=language-console data-lang=console># sudo systemctl restart nginx
+# sudo systemctl restart gunicorn
+</code></pre><h1 id=alternate--deploy-with-supervisor>Alternate : Deploy with supervisor</h1>
+<p>Install supervisor</p>
+<pre><code class=language-console data-lang=console>apt-get install supervisor
+</code></pre><p>After installing supervisor create a supervisor conf file</p>
+<pre><code class=language-console data-lang=console>sudo vim /etc/supervisor/conf.d/django_project.conf
+</code></pre><p>A sample conf file for django project</p>
+<pre><code>[program:project]
+command=/path_to/venv/bin/gunicorn --workers 2 --bind unix:/path_where_you_want_the_sock_file_to_reside/project.sock project.wsgi
+directory=/root/path_to_project/project
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/project.err.log
+stdout_logfile=/var/log/project.out.log
+
+[supervisord]
+environment=
+        DATABASE_URL=&quot;postgres://postgres:root@localhost:5432/db_name&quot;,
+        DEBUG_STATUS=&quot;False&quot;,
+</code></pre><p>The conf file specifies how the project should be run by the gunicorn and where the log files should be and .env files for running the project</p>
+<p>After adding the conf file run the below commands</p>
+<pre><code class=language-console data-lang=console>sudo supervisorctl reread
+sudo supervisorctl update
+</code></pre><p>To check if the supervisor services are running use the below commmands</p>
+<pre><code class=language-console data-lang=console>
+sudo service supervisor status
+sudo service supervisor restart
+sudo service supervisor start
+
+</code></pre><p>Nginx config will remain same</p>
+<p>common nginx gotchas</p>
+<p>For debugging statifiles check access and error logs for nginx at /etc/nginx/</p>
+<p>Sometimes for staticfiles use alias instead of root with trailing slash</p>
+<p>Difference between root and alias inside static block</p>
+<p><a href="https://stackoverflow.com/questions/10631933/nginx-static-file-serving-confusion-with-root-alias#:~:text=This%20difference%20exists%20in%20the,is%20appended%20to%20the%20alias">https://stackoverflow.com/questions/10631933/nginx-static-file-serving-confusion-with-root-alias#:~:text=This%20difference%20exists%20in%20the,is%20appended%20to%20the%20alias</a>.</p>
+<p>based on static file settings your nginx conf could be</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-nginx data-lang=nginx><span style=color:#66d9ef>server</span> {
+    <span style=color:#f92672>listen</span> <span style=color:#ae81ff>80</span>;
+    <span style=color:#f92672>server_name</span> <span style=color:#e6db74>YOUR_IP_ADDRESS</span>;
+
+    <span style=color:#f92672>location</span> = <span style=color:#e6db74>/favicon.ico</span> { <span style=color:#f92672>access_log</span> <span style=color:#66d9ef>off</span>; <span style=color:#f92672>log_not_found</span> <span style=color:#66d9ef>off</span>; }
+    <span style=color:#f92672>location</span> <span style=color:#e6db74>/static/</span> {
+        <span style=color:#f92672>alias</span> <span style=color:#e6db74>/your_project/staticfiles/</span>;
+    }
+
+    <span style=color:#f92672>location</span> <span style=color:#e6db74>/media/</span> {
+        <span style=color:#f92672>root</span> <span style=color:#e6db74>/pyapps/your_project</span>;
+    }
+
+    <span style=color:#f92672>location</span> <span style=color:#e6db74>/</span> {
+        <span style=color:#f92672>include</span> <span style=color:#e6db74>proxy_params</span>;
+        <span style=color:#f92672>proxy_pass</span> <span style=color:#e6db74>http://unix:/path_where_the_sock_file_resides/project.sock</span>;
+    }
+}
+</code></pre></div>
+</div>
+</div>
+</div>
+<footer class=footer>
+<div class=footer__inner>
+<a href=/ class=logo style=text-decoration:none>
+<span class=logo__mark><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44"><path fill="none" d="M15 8l14.729 14.382L15 35.367"/></svg>
+</span>
+<span class=logo__text>developer</span>
+<span class=logo__cursor></span>
+</a>
+<div class=copyright>
+<span>© 2021 Powered by
+<a href=https://gohugo.io target=_blank rel=noopener>Hugo</a></span>
+<span>Theme created by
+<a href=https://twitter.com/panr target=_blank rel=noopener>panr</a></span>
+</div>
+</div>
+</footer>
+<script src=https://sreevardhanreddi.github.io/assets/main.js></script>
+<script src=https://sreevardhanreddi.github.io/assets/prism.js></script>
+</div>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-165714772-1','auto'),ga('send','pageview'))</script>
+</body>
+</html>
