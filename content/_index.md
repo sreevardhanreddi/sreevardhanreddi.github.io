@@ -14,11 +14,11 @@ I enjoy watching Anime and reading Manga
 
 ### Some quotes that had profound effect on me
 
-"Premature optimization is the root of all evil" - Donald Knuth
-
 "Make it work, make it right, make it fast" – Kent Beck
 
 "Code without tests is broken by design" - Jacob Kaplan-Moss
+
+"A language that doesn't affect the way you think about programming, is not worth knowing" - Alan Perlis
 
 ## Socials
 

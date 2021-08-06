@@ -2,7 +2,6 @@
 title: "Concurrency in Python"
 date: 2020-08-15T15:06:51+05:30
 draft: false
-author: "sreevardhan"
 # cover: "https://images.unsplash.com/photo-1434871619871-1f315a50efba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1053&q=80"
 categories:
   - Development

@@ -2,7 +2,6 @@
 title: "Deploying Django Project"
 date: 2020-07-15T17:33:22+05:30
 draft: false
-author: "sreevardhan"
 # cover: "https://images.unsplash.com/photo-1571786256017-aee7a0c009b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
 tags:
   - python
