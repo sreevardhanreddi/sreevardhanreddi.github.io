@@ -49,7 +49,7 @@ googleAnalytics = "UA-165714772-1"
   [languages.en]
     languageName = "English"
     title = "sreevardhanreddi.github.io"
-    subtitle = "A simple, retro theme for Hugo"
+    subtitle = "Software Developer"
     owner = ""
     keywords = ""
     copyright = ""
