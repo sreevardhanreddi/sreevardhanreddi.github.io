@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on sreevardhanreddi.github.io</title>
+    
+    
+    
+    <link>https://sreevardhanreddi.github.io/tags/python/</link>
+    <description>Recent content in python on sreevardhanreddi.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 15 Aug 2020 15:06:51 +0530</lastBuildDate>
+    
+	<atom:link href="https://sreevardhanreddi.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Concurrency in Python</title>
+      <link>https://sreevardhanreddi.github.io/blogs/concurrency-in-python/</link>
+      <pubDate>Sat, 15 Aug 2020 15:06:51 +0530</pubDate>
+      
+      <guid>https://sreevardhanreddi.github.io/blogs/concurrency-in-python/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Concurrency is the ability of different parts or units of a program, algorithm, or problem to be executed out-of-order or in a partial order, without affecting the final outcome. This allows for parallel execution of the concurrent units, which can significantly improve the overall speed of the execution.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>Deploying Django Project</title>
+      <link>https://sreevardhanreddi.github.io/blogs/deploying-django-project/</link>
+      <pubDate>Wed, 15 Jul 2020 17:33:22 +0530</pubDate>
+      
+      <guid>https://sreevardhanreddi.github.io/blogs/deploying-django-project/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Django Deployment guide using Gunicorn and Nginx on Digital Ocean.
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>

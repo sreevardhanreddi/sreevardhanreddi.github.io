@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>deployment on sreevardhanreddi.github.io</title>
+    
+    
+    
+    <link>https://sreevardhanreddi.github.io/categories/deployment/</link>
+    <description>Recent content in deployment on sreevardhanreddi.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 15 Jul 2020 17:33:22 +0530</lastBuildDate>
+    
+	<atom:link href="https://sreevardhanreddi.github.io/categories/deployment/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Deploying Django Project</title>
+      <link>https://sreevardhanreddi.github.io/blogs/deploying-django-project/</link>
+      <pubDate>Wed, 15 Jul 2020 17:33:22 +0530</pubDate>
+      
+      <guid>https://sreevardhanreddi.github.io/blogs/deploying-django-project/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Django Deployment guide using Gunicorn and Nginx on Digital Ocean.
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>
