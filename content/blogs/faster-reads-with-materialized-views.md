@@ -7,7 +7,10 @@ tags:
   - Postgres
   - Django
   - python
-categories: ""
+categories:
+  - Postgres
+  - Django
+  - python
 keywords: ""
 description: ""
 slug: "faster-reads-with-materialized-views"

@@ -12,13 +12,25 @@ I am currently exploring Docker, Kubernetes and Golang
 
 I enjoy watching Anime and reading Manga
 
+&nbsp;
+
+---
+
+&nbsp;
+
 ### Some quotes that had profound effect on me
 
 "Make it work, make it right, make it fast" – Kent Beck
 
-"Code without tests is broken by design" - Jacob Kaplan-Moss
+"Code without tests is broken by design" – Jacob Kaplan-Moss
 
-"A language that doesn't affect the way you think about programming, is not worth knowing" - Alan Perlis
+"The more you know, the more you realize you know nothing" – Aristotle
+
+&nbsp;
+
+---
+
+&nbsp;
 
 ## Socials
 
