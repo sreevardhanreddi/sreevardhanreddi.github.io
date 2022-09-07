@@ -1,280 +1,166 @@
-<!doctype html><html lang=en>
-<head>
-<title>
-Concurrency in Python ::
-sreevardhanreddi.github.io — Software Developer
-</title>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content="Concurrency is the ability of different parts or units of a program, algorithm, or problem to be executed out-of-order or in a partial order, without affecting the final outcome. This allows for parallel execution of the concurrent units, which can significantly improve the overall speed of the execution.
+<!doctype html><html lang=en><head><title>Concurrency in Python ::
+sreevardhanreddi.github.io — Software Developer</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Concurrency is the ability of different parts or units of a program, algorithm, or problem to be executed out-of-order or in a partial order, without affecting the final outcome. This allows for parallel execution of the concurrent units, which can significantly improve the overall speed of the execution.
 Let&amp;rsquo;s look at an example code, which is not concurrent.
-import requests urls = [ &amp;#34;https://docs.python.org/3/&amp;#34;, &amp;#34;https://github.com/trending/&amp;#34;, &amp;#34;https://www.youtube.com/feed/trending/&amp;#34;, &amp;#34;https://stackoverflow.com/questions/&amp;#34;, &amp;#34;https://docs.djangoproject.com/en/3.0/&amp;#34;, &amp;#34;https://requests.readthedocs.io/en/master/&amp;#34;, &amp;#34;https://docs.aiohttp.org/en/stable/&amp;#34;, &amp;#34;https://pypi.">
-<meta name=keywords content="python,concurrency,multi-threading,multithreading,async-io">
-<meta name=robots content="noodp">
-<link rel=canonical href=https://sreevardhanreddi.github.io/blogs/concurrency-in-python/>
-<link rel=stylesheet href=https://sreevardhanreddi.github.io/assets/style.css>
-<link rel=stylesheet href=https://sreevardhanreddi.github.io/style.css>
-<link rel=apple-touch-icon-precomposed sizes=144x144 href=https://sreevardhanreddi.github.io/img/apple-touch-icon-144-precomposed.png>
-<link rel="shortcut icon" href=https://sreevardhanreddi.github.io/img/favicon.png>
-<link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-Italic.woff2 rel=preload type=font/woff2 as=font crossorigin>
-<link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-Regular.woff2 rel=preload type=font/woff2 as=font crossorigin>
-<link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-Medium.woff2 rel=preload type=font/woff2 as=font crossorigin>
-<link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-MediumItalic.woff2 rel=preload type=font/woff2 as=font crossorigin>
-<link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-Bold.woff2 rel=preload type=font/woff2 as=font crossorigin>
-<link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-BoldItalic.woff2 rel=preload type=font/woff2 as=font crossorigin>
-<meta name=twitter:card content="summary">
-<meta name=twitter:title content="Concurrency in Python">
-<meta name=twitter:description content="Concurrency is the ability of different parts or units of a program, algorithm, or problem to be executed out-of-order or in a partial order, without affecting the final outcome. This allows for parallel execution of the concurrent units, which can significantly improve the overall speed of the execution.">
-<meta property="og:title" content="Concurrency in Python">
-<meta property="og:description" content="Concurrency is the ability of different parts or units of a program, algorithm, or problem to be executed out-of-order or in a partial order, without affecting the final outcome. This allows for parallel execution of the concurrent units, which can significantly improve the overall speed of the execution.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://sreevardhanreddi.github.io/blogs/concurrency-in-python/"><meta property="article:section" content="blogs">
-<meta property="article:published_time" content="2020-08-15T15:06:51+05:30">
-<meta property="article:modified_time" content="2020-08-15T15:06:51+05:30"><meta property="og:site_name" content="sreevardhanreddi.github.io">
-</head>
-<body class=dark-theme>
-<div class=container>
-<header class=header>
-<span class=header__inner>
-<a href=/ class=logo style=text-decoration:none>
-<span class=logo__mark><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44"><path fill="none" d="M15 8l14.729 14.382L15 35.367"/></svg>
-</span>
-<span class=logo__text>developer</span>
-<span class=logo__cursor></span>
-</a>
-<span class=header__right>
-<nav class=menu>
-<ul class="menu__inner menu__inner--desktop">
-<li><a href=/>/</a></li>
-<li><a href=/blogs>Blogs</a></li>
-</ul>
-<ul class="menu__inner menu__inner--mobile">
-<li><a href=/>/</a></li>
-<li><a href=/blogs>Blogs</a></li>
-</ul>
-</nav>
-<span class=menu-trigger><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
-</span>
-<span class=theme-toggle><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 41c10.4934.0 19-8.5066 19-19C41 11.5066 32.4934 3 22 3 11.5066 3 3 11.5066 3 22s8.5066 19 19 19zM7 22C7 13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22z"/></svg>
-</span>
-</span>
-</span>
-</header>
-<div class=content>
-<div class=post>
-<h1 class=post-title>Concurrency in Python</h1>
-<div class=post-meta>
-<span class=post-date>
-2020-08-15
-</span>
-<span class=post-read-time>— 4 min read</span>
-</div>
-<span class=post-tags>
-<a href=https://sreevardhanreddi.github.io/tags/python/>#python</a>&nbsp;
+import requests urls = [ &amp;#34;https://docs.python.org/3/&amp;#34;, &amp;#34;https://github.com/trending/&amp;#34;, &amp;#34;https://www.youtube.com/feed/trending/&amp;#34;, &amp;#34;https://stackoverflow.com/questions/&amp;#34;, &amp;#34;https://docs.djangoproject.com/en/3.0/&amp;#34;, &amp;#34;https://requests.readthedocs.io/en/master/&amp;#34;, &amp;#34;https://docs."><meta name=keywords content="python,concurrency,multi-threading,multithreading,async-io"><meta name=robots content="noodp"><link rel=canonical href=https://sreevardhanreddi.github.io/blogs/concurrency-in-python/><link rel=stylesheet href=https://sreevardhanreddi.github.io/assets/style.css><link rel=stylesheet href=https://sreevardhanreddi.github.io/style.css><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://sreevardhanreddi.github.io/img/apple-touch-icon-144-precomposed.png><link rel="shortcut icon" href=https://sreevardhanreddi.github.io/img/favicon.png><link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-Italic.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-Regular.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-Medium.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-MediumItalic.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-Bold.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://sreevardhanreddi.github.io/assets/fonts/Inter-BoldItalic.woff2 rel=preload type=font/woff2 as=font crossorigin><meta name=twitter:card content="summary"><meta name=twitter:title content="Concurrency in Python"><meta name=twitter:description content="Concurrency is the ability of different parts or units of a program, algorithm, or problem to be executed out-of-order or in a partial order, without affecting the final outcome. This allows for parallel execution of the concurrent units, which can significantly improve the overall speed of the execution."><meta property="og:title" content="Concurrency in Python"><meta property="og:description" content="Concurrency is the ability of different parts or units of a program, algorithm, or problem to be executed out-of-order or in a partial order, without affecting the final outcome. This allows for parallel execution of the concurrent units, which can significantly improve the overall speed of the execution."><meta property="og:type" content="article"><meta property="og:url" content="https://sreevardhanreddi.github.io/blogs/concurrency-in-python/"><meta property="article:section" content="blogs"><meta property="article:published_time" content="2020-08-15T15:06:51+05:30"><meta property="article:modified_time" content="2020-08-15T15:06:51+05:30"><meta property="og:site_name" content="sreevardhanreddi.github.io"></head><body class=dark-theme><div class=container><header class=header><span class=header__inner><a href=/ class=logo style=text-decoration:none><span class=logo__mark><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44"><path fill="none" d="M15 8l14.729 14.382L15 35.367"/></svg></span><span class=logo__text>developer</span>
+<span class=logo__cursor></span></a>
+<span class=header__right><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=/>/</a></li><li><a href=/blogs>Blogs</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=/>/</a></li><li><a href=/blogs>Blogs</a></li></ul></nav><span class=menu-trigger><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></span><span class=theme-toggle><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 41c10.4934.0 19-8.5066 19-19C41 11.5066 32.4934 3 22 3 11.5066 3 3 11.5066 3 22s8.5066 19 19 19zM7 22C7 13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22z"/></svg></span></span></span></header><div class=content><div class=post><h1 class=post-title>Concurrency in Python</h1><div class=post-meta><span class=post-date>2020-08-15</span>
+<span class=post-read-time>— 4 min read</span></div><span class=post-tags><a href=https://sreevardhanreddi.github.io/tags/python/>#python</a>&nbsp;
 <a href=https://sreevardhanreddi.github.io/tags/concurrency/>#concurrency</a>&nbsp;
-<a href=https://sreevardhanreddi.github.io/tags/multi-threading/>#multi-threading</a>&nbsp;
-</span>
-<div class=post-content>
-<p>Concurrency is the ability of different parts or units of a program, algorithm, or problem to be executed out-of-order or in a partial order, without affecting the final outcome. This allows for parallel execution of the concurrent units, which can significantly improve the overall speed of the execution.</p>
-<p>Let&rsquo;s look at an example code, which is <strong>not concurrent</strong>.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>
-<span style=color:#f92672>import</span> requests
-
-urls <span style=color:#f92672>=</span> [
-    <span style=color:#e6db74>&#34;https://docs.python.org/3/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://github.com/trending/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://www.youtube.com/feed/trending/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://stackoverflow.com/questions/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://docs.djangoproject.com/en/3.0/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://requests.readthedocs.io/en/master/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://docs.aiohttp.org/en/stable/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://pypi.org/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://itsfoss.com/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://www.freecodecamp.org/news/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://gist.github.com/discover&#34;</span>,
-]
-
-<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_req</span>(url):
-    res <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>get(url)
-    print(res<span style=color:#f92672>.</span>status_code, url)
-
-<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>synchronous_function</span>():
-    <span style=color:#66d9ef>for</span> url <span style=color:#f92672>in</span> urls:
-        get_req(url)
-
-synchronous_function()
-
-</code></pre></div><p>The above program sends a http get request to all the urls specified in the list of the urls synchronously.
+<a href=https://sreevardhanreddi.github.io/tags/multi-threading/>#multi-threading</a>&nbsp;</span><div class=post-content><p>Concurrency is the ability of different parts or units of a program, algorithm, or problem to be executed out-of-order or in a partial order, without affecting the final outcome. This allows for parallel execution of the concurrent units, which can significantly improve the overall speed of the execution.</p><p>Let&rsquo;s look at an example code, which is <strong>not concurrent</strong>.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> requests
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>urls <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://docs.python.org/3/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://github.com/trending/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://www.youtube.com/feed/trending/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://stackoverflow.com/questions/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://docs.djangoproject.com/en/3.0/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://requests.readthedocs.io/en/master/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://docs.aiohttp.org/en/stable/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://pypi.org/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://itsfoss.com/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://www.freecodecamp.org/news/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://gist.github.com/discover&#34;</span>,
+</span></span><span style=display:flex><span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_req</span>(url):
+</span></span><span style=display:flex><span>    res <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>get(url)
+</span></span><span style=display:flex><span>    print(res<span style=color:#f92672>.</span>status_code, url)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>synchronous_function</span>():
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> url <span style=color:#f92672>in</span> urls:
+</span></span><span style=display:flex><span>        get_req(url)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>synchronous_function()
+</span></span></code></pre></div><p>The above program sends a http get request to all the urls specified in the list of the urls synchronously.
 what does synchronously mean here?
-It means that each request is sent only after the previous http request completes i.e after the previous request returns a response. So for the current request to complete it has to wait for the previous request to complete. Hence the code is executed in a sequential manner. But what if a single url takes a lot of time to respond? the whole code execution is paused until we get a response. Can we make it better? Yes, we can !!.</p>
-<p>Let us rewrite the code so that each url request is independent of another url request.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> threading
-
-<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_req</span>(url):
-    res <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>get(url)
-    print(res<span style=color:#f92672>.</span>status_code, url)
-
-<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>threaded_function</span>():
-    threads <span style=color:#f92672>=</span> []
-    <span style=color:#66d9ef>for</span> url <span style=color:#f92672>in</span> urls:
-        t <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Thread(target<span style=color:#f92672>=</span>get_req, args<span style=color:#f92672>=</span>(url,))
-        t<span style=color:#f92672>.</span>start()
-        threads<span style=color:#f92672>.</span>append(t)
-
-    <span style=color:#66d9ef>for</span> thread <span style=color:#f92672>in</span> threads:
-        thread<span style=color:#f92672>.</span>join()
-
-threaded_function()
-
-</code></pre></div><p>The above code uses python&rsquo;s threading module and uses threads. Threads are small set of individual programs that are executed independently, multiple threads can run at overlapping time intervals. Unlike other programming languages threads in python are different. They do not run parallelly, only one thread runs at a particular time due to GIL.</p>
-<p>Let&rsquo;s look at the code which uses multithreading, the implementation goes like this :</p>
-<ul>
-<li>for every url we create a new thread and make a new http get request.</li>
-<li>the thread starts running i.e it is executed by python.</li>
-</ul>
-<p>The implementation using a multithreading paradigm is better because all the urls run in different threads and don&rsquo;t have to wait for other urls to finish, each thread is now independent of other and all of them run concurrently in overlapping time.</p>
-<p>Let&rsquo;s dig deeper on what overlapping time here means</p>
-<ul>
-<li>assume there are 2 urls and 2 threads</li>
-<li>we know that python can execute only one thread at a time</li>
-<li><strong>thread 1</strong> sends http request and waits for a response for <strong>url 1</strong></li>
-<li>while <strong>thread 1</strong> is waiting for the response <strong>thread 2</strong> sends another http request and waits for the response, so when <strong>thread 2</strong> is waiting we would have already got the response for <strong>thread 1</strong> url and later we get the response for <strong>thread 2</strong> url.</li>
-</ul>
-<p>So by using multithreading, we can significantly reduce the waiting time for blocking operations such as <strong>Network and IO</strong> operations.</p>
-<p>But there is another problem here, usually, multithreaded programs are hard to implement and design.</p>
-<p>Python 3.5 introduced async/await. Asynchronous programming improves the performance for blocking operations by running concurrently. So when these features were introduced there weren&rsquo;t many libraries to leverage its power. Libraries like <a href=https://docs.aiohttp.org/en/stable/>aiohttp</a>, <a href=https://www.python-httpx.org/>httpx</a> etc support async/await.</p>
-<p>Let&rsquo;s re-write the above program to use async/await</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>
-<span style=color:#f92672>import</span> asyncio
-
-<span style=color:#f92672>import</span> httpx
-
-<span style=color:#66d9ef>async</span> <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>async_get</span>(url):
-    client <span style=color:#f92672>=</span> httpx<span style=color:#f92672>.</span>AsyncClient()
-    res <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> client<span style=color:#f92672>.</span>get(url)
-    print(res<span style=color:#f92672>.</span>status_code, url)
-    <span style=color:#66d9ef>await</span> client<span style=color:#f92672>.</span>aclose()
-
-
-<span style=color:#66d9ef>async</span> <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>async_func</span>():
-    async_funcs <span style=color:#f92672>=</span> [async_get(url) <span style=color:#66d9ef>for</span> url <span style=color:#f92672>in</span> urls]
-    <span style=color:#66d9ef>await</span> asyncio<span style=color:#f92672>.</span>gather(<span style=color:#f92672>*</span>async_funcs)
-
-asyncio<span style=color:#f92672>.</span>run(async_func())
-</code></pre></div><p>The above version looks a lot cleaner than the threading version and performs as good as the threading version.</p>
-<p>Here you can find the complete code with benchmarks</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>
-<span style=color:#f92672>import</span> asyncio
-<span style=color:#f92672>import</span> threading
-<span style=color:#f92672>import</span> time
-
-<span style=color:#f92672>import</span> httpx
-<span style=color:#f92672>import</span> requests
-
-
-urls <span style=color:#f92672>=</span> [
-    <span style=color:#e6db74>&#34;https://docs.python.org/3/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://github.com/trending/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://www.youtube.com/feed/trending/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://stackoverflow.com/questions/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://docs.djangoproject.com/en/3.0/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://requests.readthedocs.io/en/master/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://docs.aiohttp.org/en/stable/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://pypi.org/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://itsfoss.com/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://www.freecodecamp.org/news/&#34;</span>,
-    <span style=color:#e6db74>&#34;https://gist.github.com/discover&#34;</span>,
-]
-
-
-<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_req</span>(url):
-    res <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>get(url)
-    <span style=color:#75715e># print(res.status_code, url)</span>
-
-
-<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>synchronous_function</span>():
-    <span style=color:#66d9ef>for</span> url <span style=color:#f92672>in</span> urls:
-        get_req(url)
-
-
-<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>threaded_function</span>():
-    threads <span style=color:#f92672>=</span> []
-    <span style=color:#66d9ef>for</span> url <span style=color:#f92672>in</span> urls:
-        t <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Thread(target<span style=color:#f92672>=</span>get_req, args<span style=color:#f92672>=</span>(url,))
-        t<span style=color:#f92672>.</span>start()
-        threads<span style=color:#f92672>.</span>append(t)
-
-    <span style=color:#66d9ef>for</span> thread <span style=color:#f92672>in</span> threads:
-        thread<span style=color:#f92672>.</span>join()
-
-
-<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>time_taken_for</span>(func):
-    start_time <span style=color:#f92672>=</span> time<span style=color:#f92672>.</span>perf_counter()
-    func()  <span style=color:#75715e># or func.__call__()</span>
-    end_time <span style=color:#f92672>=</span> time<span style=color:#f92672>.</span>perf_counter()
-    total_time <span style=color:#f92672>=</span> end_time <span style=color:#f92672>-</span> start_time
-    print(
-        <span style=color:#e6db74>&#34;total time taken for function </span><span style=color:#e6db74>{}</span><span style=color:#e6db74> : </span><span style=color:#e6db74>{:.3f}</span><span style=color:#e6db74> seconds&#34;</span><span style=color:#f92672>.</span>format(
-            func<span style=color:#f92672>.</span>__name__, total_time
-        ),
-    )
-
-
-<span style=color:#66d9ef>async</span> <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>async_get</span>(url):
-    client <span style=color:#f92672>=</span> httpx<span style=color:#f92672>.</span>AsyncClient()
-    res <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> client<span style=color:#f92672>.</span>get(url)
-    <span style=color:#75715e># print(res.status_code, url)</span>
-    <span style=color:#66d9ef>await</span> client<span style=color:#f92672>.</span>aclose()
-
-
-<span style=color:#66d9ef>async</span> <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>async_func</span>():
-    async_funcs <span style=color:#f92672>=</span> [async_get(url) <span style=color:#66d9ef>for</span> url <span style=color:#f92672>in</span> urls]
-    <span style=color:#66d9ef>await</span> asyncio<span style=color:#f92672>.</span>gather(<span style=color:#f92672>*</span>async_funcs)
-
-
-<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>time_taken_for_async_req</span>():
-    start_time <span style=color:#f92672>=</span> time<span style=color:#f92672>.</span>perf_counter()
-    asyncio<span style=color:#f92672>.</span>run(async_func())
-    end_time <span style=color:#f92672>=</span> time<span style=color:#f92672>.</span>perf_counter()
-    total_time <span style=color:#f92672>=</span> end_time <span style=color:#f92672>-</span> start_time
-    print(<span style=color:#e6db74>&#34;total time taken for async function : </span><span style=color:#e6db74>{:.3f}</span><span style=color:#e6db74> seconds&#34;</span><span style=color:#f92672>.</span>format(total_time),)
-
-
-<span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;__main__&#34;</span>:
-    time_taken_for(synchronous_function)
-    time_taken_for(threaded_function)
-    time_taken_for_async_req()
-
-
-
-<span style=color:#75715e># total time taken for function synchronous_function : 10.250 seconds</span>
-
-<span style=color:#75715e># total time taken for function threaded_function : 1.369 seconds</span>
-
-<span style=color:#75715e># total time taken for async function : 1.315 seconds</span>
-</code></pre></div>
-</div>
-</div>
-</div>
-<footer class=footer>
-<div class=footer__inner>
-<a href=/ class=logo style=text-decoration:none>
-<span class=logo__mark><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44"><path fill="none" d="M15 8l14.729 14.382L15 35.367"/></svg>
-</span>
-<span class=logo__text>developer</span>
-<span class=logo__cursor></span>
-</a>
-<div class=copyright>
-<span>© 2021 Powered by
+It means that each request is sent only after the previous http request completes i.e after the previous request returns a response. So for the current request to complete it has to wait for the previous request to complete. Hence the code is executed in a sequential manner. But what if a single url takes a lot of time to respond? the whole code execution is paused until we get a response. Can we make it better? Yes, we can !!.</p><p>Let us rewrite the code so that each url request is independent of another url request.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> threading
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_req</span>(url):
+</span></span><span style=display:flex><span>    res <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>get(url)
+</span></span><span style=display:flex><span>    print(res<span style=color:#f92672>.</span>status_code, url)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>threaded_function</span>():
+</span></span><span style=display:flex><span>    threads <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> url <span style=color:#f92672>in</span> urls:
+</span></span><span style=display:flex><span>        t <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Thread(target<span style=color:#f92672>=</span>get_req, args<span style=color:#f92672>=</span>(url,))
+</span></span><span style=display:flex><span>        t<span style=color:#f92672>.</span>start()
+</span></span><span style=display:flex><span>        threads<span style=color:#f92672>.</span>append(t)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> thread <span style=color:#f92672>in</span> threads:
+</span></span><span style=display:flex><span>        thread<span style=color:#f92672>.</span>join()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>threaded_function()
+</span></span></code></pre></div><p>The above code uses python&rsquo;s threading module and uses threads. Threads are small set of individual programs that are executed independently, multiple threads can run at overlapping time intervals. Unlike other programming languages threads in python are different. They do not run parallelly, only one thread runs at a particular time due to GIL.</p><p>Let&rsquo;s look at the code which uses multithreading, the implementation goes like this :</p><ul><li>for every url we create a new thread and make a new http get request.</li><li>the thread starts running i.e it is executed by python.</li></ul><p>The implementation using a multithreading paradigm is better because all the urls run in different threads and don&rsquo;t have to wait for other urls to finish, each thread is now independent of other and all of them run concurrently in overlapping time.</p><p>Let&rsquo;s dig deeper on what overlapping time here means</p><ul><li>assume there are 2 urls and 2 threads</li><li>we know that python can execute only one thread at a time</li><li><strong>thread 1</strong> sends http request and waits for a response for <strong>url 1</strong></li><li>while <strong>thread 1</strong> is waiting for the response <strong>thread 2</strong> sends another http request and waits for the response, so when <strong>thread 2</strong> is waiting we would have already got the response for <strong>thread 1</strong> url and later we get the response for <strong>thread 2</strong> url.</li></ul><p>So by using multithreading, we can significantly reduce the waiting time for blocking operations such as <strong>Network and IO</strong> operations.</p><p>But there is another problem here, usually, multithreaded programs are hard to implement and design.</p><p>Python 3.5 introduced async/await. Asynchronous programming improves the performance for blocking operations by running concurrently. So when these features were introduced there weren&rsquo;t many libraries to leverage its power. Libraries like <a href=https://docs.aiohttp.org/en/stable/>aiohttp</a>, <a href=https://www.python-httpx.org/>httpx</a> etc support async/await.</p><p>Let&rsquo;s re-write the above program to use async/await</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> asyncio
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> httpx
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>async_get</span>(url):
+</span></span><span style=display:flex><span>    client <span style=color:#f92672>=</span> httpx<span style=color:#f92672>.</span>AsyncClient()
+</span></span><span style=display:flex><span>    res <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> client<span style=color:#f92672>.</span>get(url)
+</span></span><span style=display:flex><span>    print(res<span style=color:#f92672>.</span>status_code, url)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>await</span> client<span style=color:#f92672>.</span>aclose()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>async_func</span>():
+</span></span><span style=display:flex><span>    async_funcs <span style=color:#f92672>=</span> [async_get(url) <span style=color:#66d9ef>for</span> url <span style=color:#f92672>in</span> urls]
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>await</span> asyncio<span style=color:#f92672>.</span>gather(<span style=color:#f92672>*</span>async_funcs)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>asyncio<span style=color:#f92672>.</span>run(async_func())
+</span></span></code></pre></div><p>The above version looks a lot cleaner than the threading version and performs as good as the threading version.</p><p>Here you can find the complete code with benchmarks</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> asyncio
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> threading
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> time
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> httpx
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> requests
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>urls <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://docs.python.org/3/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://github.com/trending/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://www.youtube.com/feed/trending/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://stackoverflow.com/questions/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://docs.djangoproject.com/en/3.0/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://requests.readthedocs.io/en/master/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://docs.aiohttp.org/en/stable/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://pypi.org/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://itsfoss.com/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://www.freecodecamp.org/news/&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://gist.github.com/discover&#34;</span>,
+</span></span><span style=display:flex><span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_req</span>(url):
+</span></span><span style=display:flex><span>    res <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>get(url)
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print(res.status_code, url)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>synchronous_function</span>():
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> url <span style=color:#f92672>in</span> urls:
+</span></span><span style=display:flex><span>        get_req(url)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>threaded_function</span>():
+</span></span><span style=display:flex><span>    threads <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> url <span style=color:#f92672>in</span> urls:
+</span></span><span style=display:flex><span>        t <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Thread(target<span style=color:#f92672>=</span>get_req, args<span style=color:#f92672>=</span>(url,))
+</span></span><span style=display:flex><span>        t<span style=color:#f92672>.</span>start()
+</span></span><span style=display:flex><span>        threads<span style=color:#f92672>.</span>append(t)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> thread <span style=color:#f92672>in</span> threads:
+</span></span><span style=display:flex><span>        thread<span style=color:#f92672>.</span>join()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>time_taken_for</span>(func):
+</span></span><span style=display:flex><span>    start_time <span style=color:#f92672>=</span> time<span style=color:#f92672>.</span>perf_counter()
+</span></span><span style=display:flex><span>    func()  <span style=color:#75715e># or func.__call__()</span>
+</span></span><span style=display:flex><span>    end_time <span style=color:#f92672>=</span> time<span style=color:#f92672>.</span>perf_counter()
+</span></span><span style=display:flex><span>    total_time <span style=color:#f92672>=</span> end_time <span style=color:#f92672>-</span> start_time
+</span></span><span style=display:flex><span>    print(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;total time taken for function </span><span style=color:#e6db74>{}</span><span style=color:#e6db74> : </span><span style=color:#e6db74>{:.3f}</span><span style=color:#e6db74> seconds&#34;</span><span style=color:#f92672>.</span>format(
+</span></span><span style=display:flex><span>            func<span style=color:#f92672>.</span>__name__, total_time
+</span></span><span style=display:flex><span>        ),
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>async_get</span>(url):
+</span></span><span style=display:flex><span>    client <span style=color:#f92672>=</span> httpx<span style=color:#f92672>.</span>AsyncClient()
+</span></span><span style=display:flex><span>    res <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> client<span style=color:#f92672>.</span>get(url)
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print(res.status_code, url)</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>await</span> client<span style=color:#f92672>.</span>aclose()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>async_func</span>():
+</span></span><span style=display:flex><span>    async_funcs <span style=color:#f92672>=</span> [async_get(url) <span style=color:#66d9ef>for</span> url <span style=color:#f92672>in</span> urls]
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>await</span> asyncio<span style=color:#f92672>.</span>gather(<span style=color:#f92672>*</span>async_funcs)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>time_taken_for_async_req</span>():
+</span></span><span style=display:flex><span>    start_time <span style=color:#f92672>=</span> time<span style=color:#f92672>.</span>perf_counter()
+</span></span><span style=display:flex><span>    asyncio<span style=color:#f92672>.</span>run(async_func())
+</span></span><span style=display:flex><span>    end_time <span style=color:#f92672>=</span> time<span style=color:#f92672>.</span>perf_counter()
+</span></span><span style=display:flex><span>    total_time <span style=color:#f92672>=</span> end_time <span style=color:#f92672>-</span> start_time
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;total time taken for async function : </span><span style=color:#e6db74>{:.3f}</span><span style=color:#e6db74> seconds&#34;</span><span style=color:#f92672>.</span>format(total_time),)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;__main__&#34;</span>:
+</span></span><span style=display:flex><span>    time_taken_for(synchronous_function)
+</span></span><span style=display:flex><span>    time_taken_for(threaded_function)
+</span></span><span style=display:flex><span>    time_taken_for_async_req()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># total time taken for function synchronous_function : 10.250 seconds</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># total time taken for function threaded_function : 1.369 seconds</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># total time taken for async function : 1.315 seconds</span>
+</span></span></code></pre></div></div></div></div><footer class=footer><div class=footer__inner><a href=/ class=logo style=text-decoration:none><span class=logo__mark><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44"><path fill="none" d="M15 8l14.729 14.382L15 35.367"/></svg></span><span class=logo__text>developer</span>
+<span class=logo__cursor></span></a><div class=copyright><span>© 2022 Powered by
 <a href=https://gohugo.io target=_blank rel=noopener>Hugo</a></span>
 <span>Theme created by
-<a href=https://twitter.com/panr target=_blank rel=noopener>panr</a></span>
-</div>
-</div>
-</footer>
-<script src=https://sreevardhanreddi.github.io/assets/main.js></script>
-<script src=https://sreevardhanreddi.github.io/assets/prism.js></script>
-</div>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-165714772-1','auto'),ga('send','pageview'))</script>
-</body>
-</html>
+<a href=https://twitter.com/panr target=_blank rel=noopener>panr</a></span></div></div></footer><script src=https://sreevardhanreddi.github.io/assets/main.js></script>
+<script src=https://sreevardhanreddi.github.io/assets/prism.js></script></div><script async src="https://www.googletagmanager.com/gtag/js?id=G-Z1YJ2MMRYT"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-Z1YJ2MMRYT",{anonymize_ip:!1})}</script></body></html>
