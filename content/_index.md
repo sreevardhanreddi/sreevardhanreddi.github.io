@@ -4,13 +4,13 @@ date: 2020-08-15T15:24:53+05:30
 draft: false
 ---
 
-## My Name is Sreevardhan, I am a Full Stack Developer
+## My Name is Sreevardhan, I am a Software Developer
 
-### I build apps using Django, Node.js, Flask and React.
+### I build apps using Python, Node.js, FastAPI and React.
 
-I am currently exploring Docker, Kubernetes and Golang
+I am currently exploring Golang and Kubernetes.
 
-I enjoy watching Anime and reading Manga
+I enjoy reading and watching anime. 
 
 &nbsp;
 
