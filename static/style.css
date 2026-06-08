@@ -1,0 +1,6 @@
+/* Custom overrides for hugo-theme-terminal: black & white color scheme */
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+  --accent: #ffffff;
+}
